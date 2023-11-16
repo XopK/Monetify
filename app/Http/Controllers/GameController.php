@@ -237,4 +237,25 @@ class GameController extends Controller
         ->get();
         return view('game', ['games' => $games]);
     }
+    public function updateGame(Request $request, Game $games)
+    {
+        $id = $request->id;
+        $games = Game::find($id);
+        $currentDateTime = Carbon::now();
+        if ($request->hasFile('photo')) {
+            $name = $request->file('photo')->hashName();
+            $path = $request->file('photo')->store('/public/image');
+        }else{
+            $nameImage = DB::table('games')
+            ->select('image')
+            ->where('id', $id)
+            ->first();
+            $name = $nameImage->image;
+        }
+
+        $games->fill(['title' => $request->title, 'description' => $request->description, 'image' => $name, 'price' => $request->price, 'updated_at' => $currentDateTime]);
+        $games->save();
+        return redirect('/admin');
+        // dd($name);
+    }
 }

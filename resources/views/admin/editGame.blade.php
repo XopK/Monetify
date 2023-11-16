@@ -22,16 +22,18 @@
     <div class="container" style="margin-top: 80px">
         <h2>Редактиование игры</h2>
         @foreach ($edit as $item)
-            <form action="#" class="addGame">
+            <form action="/admin/editGame/update " enctype="multipart/form-data" method="POST" class="addGame">
+                @csrf
+                @method('PATCH')
                 <div class="mb-3">
-
+                    <input type="hidden" name="id" value="{{$item->id_game}}">
                     <label for="exampleFormControlInput1" class="form-label">Название игры</label>
-                    <input type="text" class="form-control addGame-input" value="{{ $item->title }}"
+                    <input type="text" name="title" class="form-control addGame-input" value="{{ $item->title }}"
                         id="exampleFormControlInput1">
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Описание</label>
-                    <textarea class="form-control addGame-input" id="exampleFormControlTextarea1" rows="8">{{ $item->description }}</textarea>
+                    <textarea class="form-control addGame-input" name="description" id="exampleFormControlTextarea1" rows="8">{{ $item->description }}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Жанры</label>
@@ -60,8 +62,13 @@
                     </div>
                 </div>
                 <div class="mb-3" style="margin-top: 10px">
+                    <label for="exampleFormControlInput1" class="form-label">Фото</label>
+                    <input type="file" name="photo" class="form-control addGame-input"
+                        id="exampleFormControlInput1">
+                </div>
+                <div class="mb-3" style="margin-top: 10px">
                     <label for="exampleFormControlInput1" class="form-label">Цена</label>
-                    <input type="number" value="{{ $item->price }}" class="form-control addGame-input"
+                    <input type="number" name="price" value="{{ $item->price }}" class="form-control addGame-input"
                         id="exampleFormControlInput1">
                 </div>
 

@@ -50,6 +50,8 @@ Route::get('/admin/{genre}/deleteGenre', [GenreController::class, 'destroy']);
 
 Route::get('/admin/editGame/{gameEdit}', [GameController::class, 'editShow']);
 
+Route::patch('/admin/editGame/update', [GameController::class, 'updateGame']);
+
 Route::get('/admin/addGenre', function () {
     return view('admin.addGenre');
 });
