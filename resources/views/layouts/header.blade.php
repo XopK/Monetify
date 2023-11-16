@@ -72,11 +72,13 @@
                         <li class="nav-item nav-item-cost">
                             <h4>Ты чего то ждешь?</h4>
                         </li>
+                        @php
+                            $total = 0;
+                        @endphp
                     @else
                         @php
                             $total = 0;
                         @endphp
-
                         @forelse (session('cart') as $item)
                             <li class="nav-item nav-item-cust">
                                 <a class="nav-link nav-link-cust" href="#">
@@ -85,7 +87,7 @@
                                 </a>
                             </li>
                             @php
-                                $total += $item->price; 
+                                $total += $item->price;
                             @endphp
                         @empty
                             <li class="nav-item nav-item-cost">
