@@ -29,7 +29,7 @@
                         <p class="game-cost">Цена: {{$game->price}}₽</p>
                     </div>
                     <div class="game-block-right-b">
-                        <button class="game-btn">В корзину</button>
+                        <a href="/game/{{$game->id_game}}/addCart" type="button" class="btn game-btn">В корзину</a>
                     </div>
                 </div>
             </div>

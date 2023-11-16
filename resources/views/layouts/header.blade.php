@@ -68,18 +68,39 @@
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item nav-item-cust">
-                        <a class="nav-link nav-link-cust" href="#">
-                            <span>Elden Ring</span>
-                            <span>1585 ₽</span>
-                        </a>
-                    </li>
-                    <li class="nav-item nav-item-cost">
-                        <p>Итого: <span>1585 ₽</span></p>
-                    </li>
-                    <li class="nav-item nav-item-cost">
-                        <a href="" class="btn nav-cart-btn">Оформить заказ</a>
-                    </li>
+                    @if (session()->missing('cart'))
+                        <li class="nav-item nav-item-cost">
+                            <h4>Ты чего то ждешь?</h4>
+                        </li>
+                    @else
+                        @php
+                            $total = 0;
+                        @endphp
+
+                        @forelse (session('cart') as $item)
+                            <li class="nav-item nav-item-cust">
+                                <a class="nav-link nav-link-cust" href="#">
+                                    <span>{{ $item->title }}</span>
+                                    <span>{{ $item->price }}₽</span>
+                                </a>
+                            </li>
+                            @php
+                                $total += $item->price; 
+                            @endphp
+                        @empty
+                            <li class="nav-item nav-item-cost">
+                                <h4>В корзине пусто</h4>
+                            </li>
+                        @endforelse
+                    @endif
+                    @auth
+                        <li class="nav-item nav-item-cost">
+                            <p>Итого: <span>{{ $total }}₽</span></p>
+                        </li>
+                        <li class="nav-item nav-item-cost">
+                            <a href="" class="btn nav-cart-btn">Оформить заказ</a>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </div>

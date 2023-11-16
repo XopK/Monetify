@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Models\game_and_genre;
 use App\Models\Genre;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +32,7 @@ class GameController extends Controller
         $slider = DB::table('games')
             ->select('id', 'title', 'image', 'price')
             ->get();
+
         return view('index', ['games' => $games, 'newest' => $new, 'slider' => $slider]);
     }
 
@@ -74,7 +76,7 @@ class GameController extends Controller
                         return $query->where('games.price', '<=', request('max_price'));
                     })
                     ->groupBy('id_game')
-                    ->orderBy('games.price', 'ASC')
+                    ->orderBy('games.price', 'DESC')
                     ->get();
                 break;
             case '2':
@@ -95,7 +97,7 @@ class GameController extends Controller
                         return $query->where('games.price', '<=', request('max_price'));
                     })
                     ->groupBy('id_game')
-                    ->orderBy('games.price', 'DESC')
+                    ->orderBy('games.price', 'ASC')
                     ->get();
                 break;
             case '3':
@@ -227,14 +229,15 @@ class GameController extends Controller
         // dd($games);
         return view('admin.editGame', ['edit' => $games, 'allgenres' => $Allgenres]);
     }
-    public function detailGame($game_id){
+    public function detailGame($game_id)
+    {
         $games = DB::table('game_and_genres')
-        ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'id_game')
-        ->join('genres', 'genres.id', '=', 'game_and_genres.id_genre')
-        ->join('games', 'games.id', '=', 'game_and_genres.id_game')
-        ->where('id_game', $game_id)
-        ->groupBy('id_game')
-        ->get();
+            ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'id_game')
+            ->join('genres', 'genres.id', '=', 'game_and_genres.id_genre')
+            ->join('games', 'games.id', '=', 'game_and_genres.id_game')
+            ->where('id_game', $game_id)
+            ->groupBy('id_game')
+            ->get();
         return view('game', ['games' => $games]);
     }
     public function updateGame(Request $request, Game $games)
@@ -245,11 +248,11 @@ class GameController extends Controller
         if ($request->hasFile('photo')) {
             $name = $request->file('photo')->hashName();
             $path = $request->file('photo')->store('/public/image');
-        }else{
+        } else {
             $nameImage = DB::table('games')
-            ->select('image')
-            ->where('id', $id)
-            ->first();
+                ->select('image')
+                ->where('id', $id)
+                ->first();
             $name = $nameImage->image;
         }
 

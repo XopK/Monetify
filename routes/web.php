@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,8 @@ Route::get('/admin/{genre}/deleteGenre', [GenreController::class, 'destroy']);
 Route::get('/admin/editGame/{gameEdit}', [GameController::class, 'editShow']);
 
 Route::patch('/admin/editGame/update', [GameController::class, 'updateGame']);
+
+Route::get('/game/{cart}/addCart', [CartController::class, 'addToCart']);
 
 Route::get('/admin/addGenre', function () {
     return view('admin.addGenre');

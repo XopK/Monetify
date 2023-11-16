@@ -898,7 +898,7 @@ tbody img{
 .game-btn{
     font-family: Montserrat Alternates;
     font-size: 20px;
-    height: 80%;
+    height: 45px;
     width: 30%;
     border: none;
     background-color: #0081cc;
@@ -910,6 +910,7 @@ tbody img{
 }
 .game-btn:hover{
     background-color: #00a2ff;
+    color: white;
 }
 .game-block-right-t{
     width: 100%;
