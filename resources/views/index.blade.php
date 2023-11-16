@@ -27,10 +27,10 @@
                         <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
                             <div class="d-flex">
                                     <div class="left-slider">
-                                        <a href="#">
+                                        <a href="/game/{{$sliders->id}}">
                                             <img src="/storage/image/{{ $sliders->image }}" alt="{{ $sliders->image }}">
                                         </a>
-                                        <a href="#" class="slider-cost">{{ $sliders->price }}₽</a>
+                                        <a href="/game/{{$sliders->id}}" class="slider-cost">{{ $sliders->price }}₽</a>
                                     </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                 <div class="col-8">
                     <h2 style="text-align: center;margin:20px 0">Лидеры продаж</h2>
                     @foreach ($games as $item)
-                        <a class="maincard-cm-link" href="">
+                        <a class="maincard-cm-link" href="/game/{{$item->id_game}}">
                             <div class="maincard-cm-body">
                                 <div class="maincard-cm-img">
                                     <img src="/storage/image/{{ $item->image }}" alt="{{ $item->image }}">
@@ -77,7 +77,7 @@
                 <div class="col-4">
                     <h2 style="text-align: center;margin:20px 0">Новинки</h2>
                     @foreach ($newest as $item2)
-                        <a class="maincard-cm-link" href="">
+                        <a class="maincard-cm-link" href="/game/{{$item2->id}}">
                             <div class="litlecard-cm-body">
                                 <div class="litlecard-cm-img">
                                     <img src="/storage/image/{{ $item2->image }}" alt="{{ $item2->image }}">
@@ -102,7 +102,7 @@
                 <h2 class="genre-title">Жанры</h2>
                 <div class="row row-cols-6 g-3">
                     <div class="col">
-                        <a href="">
+                        <a href="/catalog">
                             <div class="genre-block">
                                 <img src="/storage/image/shooter.svg" alt="shooter.svg">
                                 <p>Шутеры</p>
@@ -110,7 +110,7 @@
                         </a>
                     </div>
                     <div class="col">
-                        <a href="">
+                        <a href="/catalog">
                             <div class="genre-block">
                                 <img src="/storage/image/ghost.svg" alt="ghost.svg">
                                 <p>Хоррор</p>
@@ -118,7 +118,7 @@
                         </a>
                     </div>
                     <div class="col">
-                        <a href="">
+                        <a href="/catalog">
                             <div class="genre-block">
                                 <img src="/storage/image/hand.svg" alt="hand.svg">
                                 <p>Файтинги</p>
@@ -126,7 +126,7 @@
                         </a>
                     </div>
                     <div class="col">
-                        <a href="">
+                        <a href="/catalog">
                             <div class="genre-block">
                                 <img src="/storage/image/rpg.svg" alt="rpg.svg">
                                 <p>RPG</p>
@@ -134,7 +134,7 @@
                         </a>
                     </div>
                     <div class="col">
-                        <a href="">
+                        <a href="/catalog">
                             <div class="genre-block">
                                 <img src="/storage/image/rubik.svg" alt="rubik.svg">
                                 <p>Головоломки</p>
@@ -142,7 +142,7 @@
                         </a>
                     </div>
                     <div class="col">
-                        <a href="">
+                        <a href="/catalog">
                             <div class="genre-block">
                                 <img src="/storage/image/strategy.svg" alt="strategy.svg">
                                 <p>Стратегии</p>

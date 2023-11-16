@@ -3,6 +3,7 @@
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,9 +34,8 @@ Route::get('/balance', function () {
 });
 Route::get('/admin/', [GameController::class, 'adminIndex']);
 
-Route::get('/game', function () {
-    return view('game');
-});
+Route::get('/game/{game_id}', [GameController::class, 'detailGame']);
+
 Route::get('/admin/genres', [GenreController::class, 'indexGenres']);
 
 Route::get('/admin/addGame', [GameController::class, 'addGame']);

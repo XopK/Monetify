@@ -59,7 +59,7 @@
             <div class="col-md-8">
                 @isset($filter)
                     @foreach ($filter as $filters)
-                        <a class="maincard-cm-link" href="/game">
+                        <a class="maincard-cm-link" href="/game/{{$filters->id_game}}">
                             <div class="maincard-cm-body">
                                 <div class="maincard-cm-img">
                                     <img src="/storage/image/{{ $filters->image }}" alt="{{ $filters->image }}">
@@ -77,7 +77,7 @@
                 @endisset
                 @isset($allgame)
                     @foreach ($allgame as $games)
-                        <a class="maincard-cm-link" href="/game">
+                        <a class="maincard-cm-link" href="/game/{{$games->id_game}}">
                             <div class="maincard-cm-body">
                                 <div class="maincard-cm-img">
                                     <img src="/storage/image/{{ $games->image }}" alt="{{ $games->image }}">

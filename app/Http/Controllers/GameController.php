@@ -15,7 +15,7 @@ class GameController extends Controller
     public function index()
     {
         $games = DB::table('game_and_genres')
-            ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price')
+            ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'id_game')
             ->join('genres', 'genres.id', '=', 'game_and_genres.id_genre')
             ->join('games', 'games.id', '=', 'game_and_genres.id_game')
             ->groupBy('id_game')
@@ -23,13 +23,13 @@ class GameController extends Controller
             ->get();
 
         $new = DB::table('games')
-            ->select('title', 'image', 'price')
+            ->select('id', 'title', 'image', 'price')
             ->orderBy('id', 'desc')
             ->limit(6)
             ->get();
 
         $slider = DB::table('games')
-            ->select('title', 'image', 'price')
+            ->select('id', 'title', 'image', 'price')
             ->get();
         return view('index', ['games' => $games, 'newest' => $new, 'slider' => $slider]);
     }
@@ -37,7 +37,7 @@ class GameController extends Controller
     public function catalog()
     {
         $games = DB::table('game_and_genres')
-            ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'games.created_at')
+            ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'games.created_at', 'id_game')
             ->join('genres', 'genres.id', '=', 'game_and_genres.id_genre')
             ->join('games', 'games.id', '=', 'game_and_genres.id_game')
             ->groupBy('id_game')
@@ -58,7 +58,7 @@ class GameController extends Controller
         switch ($idSort) {
             case '1':
                 $filter = DB::table('game_and_genres')
-                    ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'games.created_at')
+                    ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'games.created_at', 'id_game')
                     ->join('genres', 'genres.id', '=', 'game_and_genres.id_genre')
                     ->join('games', 'games.id', '=', 'game_and_genres.id_game')
                     ->when($idGenr, function ($query) use ($idGenr) {
@@ -79,7 +79,7 @@ class GameController extends Controller
                 break;
             case '2':
                 $filter = DB::table('game_and_genres')
-                    ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'games.created_at')
+                    ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'games.created_at', 'id_game')
                     ->join('genres', 'genres.id', '=', 'game_and_genres.id_genre')
                     ->join('games', 'games.id', '=', 'game_and_genres.id_game')
                     ->when($idGenr, function ($query) use ($idGenr) {
@@ -100,7 +100,7 @@ class GameController extends Controller
                 break;
             case '3':
                 $filter = DB::table('game_and_genres')
-                    ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'games.created_at')
+                    ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'games.created_at', 'id_game')
                     ->join('genres', 'genres.id', '=', 'game_and_genres.id_genre')
                     ->join('games', 'games.id', '=', 'game_and_genres.id_game')
                     ->when($idGenr, function ($query) use ($idGenr) {
@@ -121,7 +121,7 @@ class GameController extends Controller
                 break;
             default:
                 $filter = DB::table('game_and_genres')
-                    ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'games.created_at')
+                    ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'games.created_at', 'id_game')
                     ->join('genres', 'genres.id', '=', 'game_and_genres.id_genre')
                     ->join('games', 'games.id', '=', 'game_and_genres.id_game')
                     ->when($idGenr, function ($query) use ($idGenr) {
@@ -226,5 +226,15 @@ class GameController extends Controller
         // dd($genresArray);
         // dd($games);
         return view('admin.editGame', ['edit' => $games, 'allgenres' => $Allgenres]);
+    }
+    public function detailGame($game_id){
+        $games = DB::table('game_and_genres')
+        ->select(DB::raw('GROUP_CONCAT(genres.title_genre) as genres'), 'games.title', 'games.description', 'games.image', 'games.price', 'id_game')
+        ->join('genres', 'genres.id', '=', 'game_and_genres.id_genre')
+        ->join('games', 'games.id', '=', 'game_and_genres.id_game')
+        ->where('id_game', $game_id)
+        ->groupBy('id_game')
+        ->get();
+        return view('game', ['games' => $games]);
     }
 }

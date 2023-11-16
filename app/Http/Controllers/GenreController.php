@@ -25,6 +25,7 @@ class GenreController extends Controller
         return redirect("/admin/genres");
     }
 
+
     public function updateGenres(Request $request){
 
     }
