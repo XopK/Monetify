@@ -84,6 +84,8 @@
                                 <a class="nav-link nav-link-cust" href="#">
                                     <span>{{ $item->title }}</span>
                                     <span>{{ $item->price }}₽</span>
+                                    <a href="/game/{{ $item->id_game }}/removeCart" class="btn btn-danger"
+                                        style="margin-bottom: 10px">Удалить</a>
                                 </a>
                             </li>
                             @php
@@ -100,7 +102,7 @@
                             <p>Итого: <span>{{ $total }}₽</span></p>
                         </li>
                         <li class="nav-item nav-item-cost">
-                            <a href="" class="btn nav-cart-btn">Оформить заказ</a>
+                            <a href="/game/create/Order" class="btn nav-cart-btn">Оформить заказ</a>
                         </li>
                     @endauth
                 </ul>

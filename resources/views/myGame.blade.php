@@ -9,24 +9,17 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>02.11.2023</td>
-            <td><a href="#">Elden Ring</a></td>
-            <td>1585₽</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>02.11.2023</td>
-            <td><a href="#">Elden Ring</a></td>
-            <td>1585₽</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>02.11.2023</td>
-            <td><a href="#">Elden Ring</a></td>
-            <td>1585₽</td>
-        </tr>
+        @forelse ($userGame as $userGames)
+            <tr>
+                <th scope="row">{{ $userGames->id }}</th>
+                <td>{{ $userGames->created_at }}</td>
+                <td><a href="#">{{ $userGames->title }}</a></td>
+                <td>{{ $userGames->price }}₽</td>
+            </tr>
+        @empty
+            <tr>
+                <h4>Пусто...</h4>
+            </tr>
+        @endforelse
     </tbody>
 </table>
-{{-- ТАБЛИЦА --}}

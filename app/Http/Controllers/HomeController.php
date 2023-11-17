@@ -27,14 +27,20 @@ class HomeController extends Controller
     public function index()
     {
         $userID = Auth::id();
-        
+
         $cart = DB::table('carts')
-            ->select('games.title', 'games.price')
+            ->select('games.title', 'games.price', 'id_game')
             ->join('games', 'carts.id_game', '=', 'games.id')
             ->where('id_user', '=', $userID)
             ->get();
 
+        $games = DB::table('user_games')
+            ->select('id_game', 'games.title', 'games.price', 'user_games.created_at')
+            ->join('games', 'user_games.id_game', '=', 'games.id')
+            ->where('id_user', '=', $userID)
+            ->get();
+
         session(['cart' => $cart]);
-        return view('home');
+        return view('home', ['userGame' => $games]);
     }
 }

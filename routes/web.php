@@ -55,6 +55,10 @@ Route::patch('/admin/editGame/update', [GameController::class, 'updateGame']);
 
 Route::get('/game/{cart}/addCart', [CartController::class, 'addToCart']);
 
+Route::get('/game/{cart}/removeCart', [CartController::class, 'destroy']);
+
+Route::get('/game/create/Order', [CartController::class, 'createOrder']);
+
 Route::get('/admin/addGenre', function () {
     return view('admin.addGenre');
 });
