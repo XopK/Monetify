@@ -98,6 +98,11 @@
                         @endforelse
                     @endif
                     @auth
+                        @if (session('error'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <li class="nav-item nav-item-cost">
                             <p>Итого: <span>{{ $total }}₽</span></p>
                         </li>

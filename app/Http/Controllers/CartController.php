@@ -33,7 +33,9 @@ class CartController extends Controller
     public function destroy($cart)
     {
         $userID = Auth::id();
-        Cart::where('id_game', '=', $cart)->where('id_user', '=', $userID)->delete();
+        Cart::where('id_game', '=', $cart)
+            ->where('id_user', '=', $userID)
+            ->delete();
 
         $carts = DB::table('carts')
             ->select('games.title', 'games.price', 'id_game')
@@ -61,14 +63,20 @@ class CartController extends Controller
             $total = 0;
             $total += $cartItem->price;
         }
-        foreach ($idGame as $item) {
-            UserGame::create([
-                'id_user' => $userID,
-                'id_game' => $item,
-            ]);
-        }
+        if ($balance > $total) {
+            foreach ($idGame as $item) {
+                UserGame::create([
+                    'id_user' => $userID,
+                    'id_game' => $item,
+                ]);
+                $balance -= $total;
+            }
+            Auth::user()->update(['balance' => $balance]);
 
-        session()->forget('cart');
+            session()->forget('cart');
+        }else{
+            return redirect()->back()->with('error', 'Не достаточно средств');
+        }
 
         Cart::where('id_user', '=', $userID)->delete();
         return redirect()->back();

@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="mb-3 form-control d-flex" style="align-items: center; margin-top: 20px">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" required type="checkbox" value="" id="flexCheckDefault">
                         <span class="user-pol">Я ознакомлен с <a href="">пользовательским соглашением</a>, <a
                                 href="">политикой конфиденциальности</a> и даю согласие
                             на <a href="">обработку персональных данных</a>.</span>
